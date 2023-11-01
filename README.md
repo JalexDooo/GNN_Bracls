@@ -2,7 +2,7 @@
 
 This repository is the work of "The cross-modality survival prediction method of glioblastoma based on dual-graph neural networks" based on **pytorch** implementation. 
 
-Note that, the HisGAN model in `models` file will open when the paper is accept.
+Note that, the GNN model in `models` file open as **GraphNet**.
 
 You could click the link to access the [paper](https://arxiv.org/). The multimodal FeTS dataset could be acquired from [here](https://github.com/FETS-AI/Challenge).
 
