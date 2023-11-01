@@ -4,12 +4,12 @@ This repository is the work of "The cross-modality survival prediction method of
 
 Note that, the GNN model in `models` file open as **GraphNet**.
 
-You could click the link to access the [paper](https://arxiv.org/). The multimodal FeTS dataset could be acquired from [here](https://github.com/FETS-AI/Challenge).
+You could click the link to access the [paper](https://arxiv.org/). The multimodal BraTS-OS dataset could be acquired from [here](https://ipp.cbica.upenn.edu).
 
 
 <div align="center">  
 
- <img src="https://github.com/JalexDooo/GNN_Bracls/tree/main/pairplot1.jpg"
+ <img src="https://github.com/JalexDooo/GNN_Bracls/blob/main/pairplot1.jpg"
      align=center/>
 </div>
 
