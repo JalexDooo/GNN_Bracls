@@ -9,7 +9,7 @@ You could click the link to access the [paper](https://arxiv.org/). The multimod
 
 <div align="center">  
 
- <img src="https://github.com/JalexDooo/GNN_Bracls/tree/main/pairplot1.png"
+ <img src="https://github.com/JalexDooo/GNN_Bracls/tree/main/pairplot1.jpg"
      align=center/>
 </div>
 
