@@ -209,8 +209,10 @@ def train_val(**kwargs):
 
 def trainGraph(**kwargs):
     path = './preprocess'
-    data = dataloader.DataLoader(path)
-    datas = DataLoader(data, batch_size=8, shuffle=True, num_workers=0)
+    csvPath = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv'
+    seg_path = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData'
+    data = dataloader.ImageLoader(csvPath, seg_path, all=True)
+    datas = DataLoader(data, batch_size=16, shuffle=True, num_workers=0)
     model = models.GraphNet(1)
     criterion = torch.nn.L1Loss()
     criterion = torch.nn.MSELoss()
@@ -219,11 +221,11 @@ def trainGraph(**kwargs):
     model.train()
     for epoch in range(1000):
         losses = []
-        for (node_feat, edge_index, label) in datas:
+        for (img, node_feat, edge_index, label) in datas:
             # print(node_feat.shape, edge_index.shape, label)
             optimizer.zero_grad()
             label = label[:, np.newaxis].float()
-            x = model(node_feat, edge_index)
+            x = model(node_feat, edge_index, img)
             loss = criterion(x, label)
             loss.backward()
             optimizer.step()

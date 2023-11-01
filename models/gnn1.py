@@ -122,5 +122,3 @@ if __name__ == '__main__':
     edge = torch.Tensor(edge)
 
     
-
-# 神佑、必杀、偷袭、强壮、防御、协力、吸血 -> 大剑
