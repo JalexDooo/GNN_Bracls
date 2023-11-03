@@ -9,11 +9,11 @@ You could click the link to access the [paper](https://arxiv.org/). The multimod
 
 <div align="center">  
 
- <img src="https://github.com/JalexDooo/GNN_Bracls/blob/main/pairplot1.jpg"
+ <img src="https://github.com/JalexDooo/GNN_Bracls/blob/main/model.png"
      align=center/>
 </div>
 
-<center>The data.</center>
+<center>The proposed method.</center>
 
 
 ## Requirements
