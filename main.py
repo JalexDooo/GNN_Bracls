@@ -211,21 +211,23 @@ def trainGraph(**kwargs):
     path = './preprocess'
     csvPath = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv'
     seg_path = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData'
-    data = dataloader.ImageLoader(csvPath, seg_path, all=True)
+    node_npy = './preprocess/'
+    edge_npy = './preprocess/'
+    data = dataloader.ImageNodeLoader(csvPath, seg_path, node_npy, edge_npy, all=True)
     datas = DataLoader(data, batch_size=16, shuffle=True, num_workers=0)
     model = models.GraphNet(1)
-    criterion = torch.nn.L1Loss()
+    # criterion = torch.nn.L1Loss()
     criterion = torch.nn.MSELoss()
     optimizer = optim.Adam(params=model.parameters(), lr=0.0001)
 
     model.train()
     for epoch in range(1000):
         losses = []
-        for (img, node_feat, edge_index, label) in datas:
+        for (_, image_arr, label_arr, age, label, node_feat, edge_feat) in datas:
             # print(node_feat.shape, edge_index.shape, label)
             optimizer.zero_grad()
             label = label[:, np.newaxis].float()
-            x = model(node_feat, edge_index, img)
+            x = model(image_arr, label_arr, age, node_feat, edge_feat)
             loss = criterion(x, label)
             loss.backward()
             optimizer.step()
@@ -426,6 +428,24 @@ def edge():
 
     return edge_index
 
+def edge2():
+    edge_index = []
+    edge_index.append([0, 1])
+    edge_index.append([0, 2])
+    edge_index.append([1, 2])
+
+    self_index = []
+    for i in range(6):
+        self_index.append([i, i])
+    self_index = np.array(self_index)
+    self_index = np.array(self_index).transpose(1, 0)
+
+    edge_index = np.array(edge_index).transpose(1, 0)
+    edge_index = np.concatenate((edge_index, edge_index[::-1, :]), axis=1)
+    edge_index = np.concatenate((edge_index, self_index), axis=1)
+
+    return edge_index
+
 def process_data():
     csvPath = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv'
     segPath = 'D:/Study/dataset/MICCAI_BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData'
@@ -456,17 +476,34 @@ def process_data():
         image_feat, label_feat, et_feat, tc_feat, wt_feat = weight_image(imgData, lblData)
 
         node_features = np.array([age, image_feat, label_feat, et_feat, tc_feat, wt_feat])
+        node_features2 = np.array([et_feat, tc_feat, wt_feat])
         print(node_features.shape)
 
         edge_index = edge()
+        edge_index2 = edge2()
         print(edge_index.shape)
         print(edge_index)
 
         np.save('./preprocess/'+name+'_node_features_{}_.npy'.format(survival), node_features)
         np.save('./preprocess/'+name+'_edge_index_{}_.npy'.format(survival), edge_index)
-        
+        np.save('./preprocess/'+name+'_node_features2_{}_.npy'.format(survival), node_features2)
+        np.save('./preprocess/'+name+'_edge_index2_{}_.npy'.format(survival), edge_index2)
 
+def model_intput_shape():
+    node1 = torch.randn((4, 6, 64))
+    edge1 = torch.randn((4, 2, 22))
 
+    node2 = torch.randn((4, 3, 64))
+    edge2 = torch.randn((4, 2, 9))
+
+    img = torch.randn((4, 1, 128, 128, 64))
+    seg = torch.randn((4, 1, 128, 128, 64))
+
+    model = models.GraphNet(1)
+
+    age = None # age is encoding in node1 and edge1
+    out = model(img, seg, age, node1, edge1, node2, edge2)
+    print(out.shape)
 
 
 if __name__ == '__main__':
