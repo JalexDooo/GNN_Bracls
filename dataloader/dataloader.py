@@ -197,6 +197,8 @@ class ImageNodeLoader(data.DataLoader):
             # load node and edge features.
             node_feat = torch.from_numpy(np.load(self.node_path+'/'+name+'_node_features_{}_.npy'.format(survival))).float()
             edge_feat = torch.from_numpy(np.load(self.edge_path+'/'+name+'_edge_features_{}_.npy'.format(survival))).float()
+            node_feat2 = torch.from_numpy(np.load(self.node_path+'/'+name+'_node_features2_{}_.npy'.format(survival))).float()
+            edge_feat2 = torch.from_numpy(np.load(self.edge_path+'/'+name+'_edge_features2_{}_.npy'.format(survival))).float()
 
             image_path = self.seg_path+'/'+self.data[idx][0]+'/'+self.data[idx][0]+'_t1ce.nii.gz'
             image_arr = nib.load(image_path).get_fdata()
@@ -208,7 +210,7 @@ class ImageNodeLoader(data.DataLoader):
             image_arr = torch.from_numpy(image_arr).float()
             label_arr = torch.from_numpy(label_arr).float()
 
-            return name, image_arr, label_arr, age, survival, node_feat, edge_feat
+            return name, image_arr, label_arr, age, survival, node_feat, edge_feat, node_feat2, edge_feat2
         else:
             age = float(self.data[idx][1])
             age = (age-54)/36
@@ -225,7 +227,7 @@ class ImageNodeLoader(data.DataLoader):
 
             name = self.data[idx][0]
 
-            return name, image_arr, label_arr, age, node_feat, edge_feat
+            return name, image_arr, label_arr, age, node_feat, edge_feat, node_feat2, edge_feat2
     
     def process(self, image, label):
         '''

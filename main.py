@@ -223,11 +223,11 @@ def trainGraph(**kwargs):
     model.train()
     for epoch in range(1000):
         losses = []
-        for (_, image_arr, label_arr, age, label, node_feat, edge_feat) in datas:
+        for (_, image_arr, label_arr, age, label, node_feat, edge_feat, node_feat2, edge_feat2) in datas:
             # print(node_feat.shape, edge_index.shape, label)
             optimizer.zero_grad()
             label = label[:, np.newaxis].float()
-            x = model(image_arr, label_arr, age, node_feat, edge_feat)
+            x = model(image_arr, label_arr, age, node_feat, edge_feat, node_feat2, edge_feat2)
             loss = criterion(x, label)
             loss.backward()
             optimizer.step()

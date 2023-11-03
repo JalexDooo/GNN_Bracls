@@ -101,3 +101,4 @@ If you use our code or model in your work or find it is helpful, please cite the
 ***Unknown***
 ```
 
+The model Class GraphNet in ('./models/gnn2.py') shows clear model architecture.
