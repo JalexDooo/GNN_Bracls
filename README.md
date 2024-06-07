@@ -4,7 +4,7 @@ This repository is the work of "The cross-modality survival prediction method of
 
 Note that, the GNN model in `models` file open as **GraphNet**.
 
-You could click the link to access the [paper](https://arxiv.org/). The multimodal BraTS-OS dataset could be acquired from [here](https://ipp.cbica.upenn.edu).
+You could click the link to access the [paper](https://doi.org/10.1016/j.eswa.2024.124394). The multimodal BraTS-OS dataset could be acquired from [here](https://ipp.cbica.upenn.edu).
 
 
 <div align="center">  
@@ -98,7 +98,12 @@ Then make a submission to the online evaluation server.
 
 If you use our code or model in your work or find it is helpful, please cite the paper:
 ```
-***Unknown***
+@article{SUN2024124394,
+	author = {Jindong Sun and Yanjun Peng},
+	journal = {Expert Systems with Applications},
+	pages = {124394},
+	title = {The cross-modality survival prediction method of glioblastoma based on dual-graph neural networks},
+	year = {2024}}
 ```
 
 The model Class GraphNet in ('./models/gnn2.py') shows clear model architecture.
